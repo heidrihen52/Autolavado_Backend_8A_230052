@@ -1,19 +1,22 @@
-'''
-Esta clase permitegenerar el modelo para los tipos de rol
-'''
-from sqlalchemy import column, Integer, String, Boolean, DateTime, Enum, Date
-from sqlalchemy.orm import relationship
+"""
+Este modulo define el modelo Rol para la base de datos (c_rol).
+"""
+import sys
+import os
+# p
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# pylint: disable=too-few-public-methods
+# pylint: disable=wrong-import-position
+from sqlalchemy import Column, Integer, String
 from config.db import Base
 
 
 class Rol(Base):
-    '''
-    Esta clase permite generar el modelo para los tipos de rol
-    '''
-    __tablename__ = "tbc_rol"
-    IdRol = column(Integer, primary_key=True, index=True)
-    nombreRol = column(String(15), nullable=False)
-    estatus = column(Boolea)
+    """
+    Clase que representa la tabla c_rol en la base de datos.
+    """
+    __tablename__ = "c_rol"
 
-    
-    
+    ro_id = Column(Integer, primary_key=True, index=True)
+    ro_nombre = Column(String(45), nullable=False)
