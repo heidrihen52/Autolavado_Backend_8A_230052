@@ -1,5 +1,5 @@
 """
-Este modulo define el modelo Auto para la base de datos (c_auto).
+Este modulo define el modelo Auto para la base de datos (tbb_vehiculos).
 """
 import sys
 import os
@@ -14,13 +14,18 @@ from config.db import Base
 
 class Auto(Base):
     """
-    Clase que representa la tabla c_auto en la base de datos.
+    Clase que representa la tabla tbb_vehiculos en la base de datos.
     """
-    __tablename__ = "c_auto"
+    __tablename__ = "tbb_vehiculos"
 
-    au_id = Column(Integer, primary_key=True, index=True)
-    au_modelo = Column(String(45), nullable=False)
-    au_matricula = Column(String(45), nullable=False, unique=True)
-    au_color = Column(String(45), nullable=True)
-    au_Tipo = Column(String(45), nullable=True)
-    cl_id = Column(Integer, ForeignKey("c_cliente.cl_id"))
+    id = Column(Integer, primary_key=True, index=True)
+    modelo = Column(String(45), nullable=False)
+    placa = Column(String(45), nullable=False, unique=True)
+    serie = Column(String(45), nullable=True)
+    color = Column(String(45), nullable=True)
+    tipo = Column(String(45), nullable=True)
+    anio = Column(Integer, nullable=True)
+    estatus = Column(Boolean)
+    fecha_registro = Column(DateTime)
+    fecha_actualizacion = Column(DateTime)
+    vehiculo_id = Column(Integer, ForeignKey("tbb_usuarios.id"))

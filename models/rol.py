@@ -14,9 +14,12 @@ from config.db import Base
 
 class Rol(Base):
     """
-    Clase que representa la tabla c_rol en la base de datos.
+    Clase que representa la tabla tbc_roles en la base de datos.
     """
-    __tablename__ = "c_rol"
+    __tablename__ = "tbc_roles"
 
-    ro_id = Column(Integer, primary_key=True, index=True)
-    ro_nombre = Column(String(45), nullable=False)
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(45), nullable=False)
+    estado = Column(Boolean)
+    fecha_registro = Column(DateTime)
+    fecha_actualizacion = Column(DateTime)

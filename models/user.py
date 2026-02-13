@@ -1,5 +1,5 @@
 """
-Este modulo define el modelo User para la base de datos (c_usuario).
+Este modulo define el modelo User para la base de datos (tbb_usuarios).
 """
 import sys
 import os
@@ -14,14 +14,18 @@ from config.db import Base
 
 class User(Base):
     """
-    Clase que representa la tabla c_usuario en la base de datos.
+    Clase que representa la tabla tbb_usuarios en la base de datos.
     """
-    __tablename__ = "c_usuario"
+    __tablename__ = "tbb_usuarios"
 
-    us_id = Column(Integer, primary_key=True, index=True)
-    us_nombre = Column(String(60), nullable=False)
-    us_apellidoPaterno = Column(String(60), nullable=False)
-    us_apellidoMaterno = Column(String(60), nullable=True)
-    us_usuario = Column(String(60), nullable=False)
-    us_password = Column(String(256), nullable=False)
-    ro_id = Column(Integer, ForeignKey("c_rol.ro_id"))
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(60), nullable=False)
+    apellidoPaterno = Column(String(60), nullable=False)
+    apellidoMaterno = Column(String(60), nullable=True)
+    direccion = Column(String(256), nullable=True)
+    telefono = Column(String(45), nullable=True)
+    correo = Column(String(45), nullable=True)
+    password = Column(String(256), nullable=False)
+    rol_id = Column(Integer, ForeignKey("tbc_roles.id"))
+    fecha_registro = Column(DateTime)
+    fecha_actualizacion = Column(DateTime)
