@@ -1,18 +1,46 @@
-"""
-Este modulo contiene las funciones CRUD para la tabla tbc_roles.
-"""
-import sys
-import os
+import models.model_rol as model
 from sqlalchemy.orm import Session
 
-# Add the parent directory to sys.path to allow imports from config and models
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# pylint: disable=wrong-import-position
-import models.rol
+def get_roles(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(model.Rol)\
+        .offset(skip)\
+        .limit(limit)\
+        .all()
 
-def get_rol(db: Session, skip: int = 0, limit: int = 10):
-    """
-    Obtiene lista de roles con paginacion.
-    """
-    return db.query(models.rol.Rol).offset(skip).limit(limit).all()
+
+def get_rol_by_id(db: Session, rol_id: int):
+    return db.query(model.Rol)\
+        .filter(model.Rol.Id == rol_id)\
+        .first()
+
+
+def create_rol(db: Session, data):
+    nuevo = model.Rol(**data.dict())
+    db.add(nuevo)
+    db.commit()
+    db.refresh(nuevo)
+    return nuevo
+
+
+def update_rol(db: Session, rol_id: int, data):
+    rol = get_rol_by_id(db, rol_id)
+    if not rol:
+        return None
+
+    for key, value in data.dict(exclude_unset=True).items():
+        setattr(rol, key, value)
+
+    db.commit()
+    db.refresh(rol)
+    return rol
+
+
+def delete_rol(db: Session, rol_id: int):
+    rol = get_rol_by_id(db, rol_id)
+    if not rol:
+        return None
+
+    db.delete(rol)
+    db.commit()
+    return rol
